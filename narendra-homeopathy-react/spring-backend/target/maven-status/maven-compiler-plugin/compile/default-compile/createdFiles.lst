@@ -1,0 +1,11 @@
+com\narendra\homeopathy\controller\ApiController$ContactRequest.class
+com\narendra\homeopathy\repository\AppointmentRepository.class
+com\narendra\homeopathy\service\MailService.class
+com\narendra\homeopathy\controller\ApiExceptionHandler.class
+com\narendra\homeopathy\controller\ApiController.class
+com\narendra\homeopathy\config\CorsConfig.class
+com\narendra\homeopathy\model\Appointment.class
+com\narendra\homeopathy\model\ContactMessage.class
+com\narendra\homeopathy\NarendraHomeopathyApplication.class
+com\narendra\homeopathy\controller\ApiController$AppointmentRequest.class
+com\narendra\homeopathy\repository\ContactMessageRepository.class

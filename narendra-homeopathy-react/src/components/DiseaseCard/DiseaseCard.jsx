@@ -1,0 +1,1 @@
+export default function DiseaseCard({ image, title, children }) { return <div className="col-lg-4"><div className="service-img"><img src={`/images/${image}`} alt="" className="img-fluid" /></div><div className="service-inf mx-2"><h4>{title}</h4>{children}</div></div>; }
