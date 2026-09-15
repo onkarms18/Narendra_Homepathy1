@@ -98,14 +98,14 @@ function InfoCard({ icon, title, text, href, onClick }) {
   );
 
   return (
-    <div className="group rounded-[1.75rem] border border-white/20 bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 p-[1px] shadow-soft transition-transform duration-300 hover:-translate-y-1">
-      <div className="flex h-full items-start gap-4 rounded-[1.7rem] bg-gradient-to-br from-brand-500 to-brand-700 p-6 text-left text-white">
+    <div className="group h-full rounded-[1.75rem] border border-white/20 bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 p-[1px] shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="flex h-full items-center rounded-[1.7rem] bg-gradient-to-br from-brand-500 to-brand-700 p-6 text-left text-white">
         {href ? (
-          <a href={href} target="_blank" rel="noreferrer" className="flex w-full items-start gap-4 rounded-[1.5rem] no-underline">
+          <a href={href} target="_blank" rel="noreferrer" className="flex w-full items-center gap-4 rounded-[1.5rem] no-underline">
             {content}
           </a>
         ) : (
-          <button type="button" className="flex w-full items-start gap-4 rounded-[1.5rem] bg-transparent text-left text-white" onClick={onClick}>
+          <button type="button" className="flex w-full items-center gap-4 rounded-[1.5rem] bg-transparent text-left text-white" onClick={onClick}>
             {content}
           </button>
         )}
