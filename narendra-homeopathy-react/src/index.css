@@ -36,6 +36,26 @@ body {
     @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
+  .page-shell {
+    @apply mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16;
+  }
+
+  .page-card {
+    @apply rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8 lg:p-10;
+  }
+
+  .page-heading {
+    @apply text-3xl font-bold tracking-tight text-slate-900 md:text-4xl;
+  }
+
+  .page-subheading {
+    @apply inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-600;
+  }
+
+  .page-copy {
+    @apply text-base leading-8 text-slate-600;
+  }
+
   .nav-link-base {
     @apply rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition duration-200 hover:bg-brand-50 hover:text-brand-600;
   }
