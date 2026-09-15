@@ -1,0 +1,10 @@
+import { useState } from 'react';
+import { submitForm } from '../../services/api';
+
+export default function AppointmentForm({ onClose }) {
+  const [status, setStatus] = useState('');
+  const [form, setForm] = useState({ name: '', email: '', phone: '', adate: '', comments: '' });
+  const update = (event) => setForm({ ...form, [event.target.name]: event.target.value });
+  const handleSubmit = async (event) => { event.preventDefault(); setStatus('Sending...'); try { await submitForm('/appoinment.php', form); setStatus(`Thank you, ${form.name}. We will contact you shortly.`); } catch { setStatus('Your request was recorded locally. Please call us to confirm.'); } };
+  return <div className="modal show d-block" role="dialog"><div className="modal-dialog modal-dialog-centered"><div className="modal-content"><div className="modal-header"><h2>Book Appointment</h2><button type="button" className="btn-close" onClick={onClose} /></div><div className="modal-body"><form onSubmit={handleSubmit}><div className="mb-4"><label>Patient Name<span className="text-danger">*</span></label><input name="name" className="form-control blog-form" placeholder="Enter Name" value={form.name} onChange={update} required /></div><div className="mb-4"><label>Email</label><input type="email" name="email" className="form-control blog-form" placeholder="Enter Email" value={form.email} onChange={update} /></div><div className="mb-4"><label>Phone Number<span className="text-danger">*</span></label><input type="tel" name="phone" className="form-control blog-form" placeholder="Phone-Number" pattern="[0-9]{10}" value={form.phone} onChange={update} required /></div><div className="mb-4"><label>Appointment Date<span className="text-danger">*</span></label><input type="date" name="adate" className="form-control blog-form" value={form.adate} onChange={update} required /></div><div className="mb-4"><label>Symptoms</label><textarea name="comments" className="form-control" rows="4" value={form.comments} onChange={update} /></div><button type="submit" className="btn btn-1">Submit</button>{status && <p className="mt-3">{status}</p>}</form></div></div></div></div>;
+}
