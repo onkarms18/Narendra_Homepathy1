@@ -2,6 +2,8 @@
 
 React and Vite conversion of the Narendra Classical Homeopathic Clinic website.
 
+> For the current frontend architecture, features, routes, workflows, setup instructions, and development guidelines, see [PROJECT-DOCUMENTATION.md](PROJECT-DOCUMENTATION.md). This project copy contains the frontend only; any form API must run separately.
+
 The project keeps the original PHP website separate and reuses its existing visual assets, Bootstrap classes, CSS, colors, fonts, spacing, images, and responsive layout patterns.
 
 ## Project Information
