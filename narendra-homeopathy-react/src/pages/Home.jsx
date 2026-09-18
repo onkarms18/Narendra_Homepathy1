@@ -15,8 +15,8 @@ export default function Home({ onAppointment }) {
     <>
       <Slider />
 
-      <section className="brand-container relative z-10 -mt-6 pb-8">
-        <div className="grid gap-4 md:grid-cols-3">
+      <section className="brand-container relative z-10 -mt-10 pb-10 md:-mt-14 md:pb-16">
+        <div className="grid gap-5 md:grid-cols-3">
           <InfoCard
             icon="fa-user-doctor"
             title="Chat With Our Expert Doctors"
@@ -88,24 +88,28 @@ export default function Home({ onAppointment }) {
 
 function InfoCard({ icon, title, text, href, onClick }) {
   const content = (
-    <>
-      <i className={`fa-solid ${icon} text-2xl text-brand-500`} />
-      <div className="space-y-2">
-        <h4 className="text-xl font-semibold text-white">{title}</h4>
-        <p className="text-sm leading-6 text-white/80">{text}</p>
+    <div className="flex h-full items-start gap-5">
+      <i aria-hidden="true" className={`fa-solid ${icon} mt-1 w-12 shrink-0 text-center text-5xl text-white`} />
+      <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex items-start justify-between gap-3">
+          <h4 className="text-xl font-bold leading-tight text-white md:text-2xl">{title}</h4>
+          <span aria-hidden="true" className="mt-1 text-xl text-white/80 transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </div>
+        <p className="mt-4 text-base leading-7 text-white/90">{text}</p>
       </div>
-    </>
+    </div>
   );
 
   return (
-    <div className="group h-full rounded-[1.75rem] border border-white/20 bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 p-[1px] shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-      <div className="flex h-full items-center rounded-[1.7rem] bg-gradient-to-br from-brand-500 to-brand-700 p-6 text-left text-white">
+    <div className="group relative h-full overflow-hidden rounded-[1.75rem] border border-brand-500 bg-brand-500 shadow-[0_18px_45px_rgba(156,18,54,0.18)] transition-all duration-300 hover:-translate-y-2 hover:border-brand-500 hover:bg-brand-500 hover:shadow-[0_24px_55px_rgba(156,18,54,0.22)]">
+      <div className="absolute inset-x-0 top-0 h-1 bg-white/35 transition-colors duration-300 group-hover:bg-white/60" />
+      <div className="flex h-full min-h-[205px] flex-col p-6 text-left md:p-7">
         {href ? (
-          <a href={href} target="_blank" rel="noreferrer" className="flex w-full items-center gap-4 rounded-[1.5rem] no-underline">
+          <a href={href} target="_blank" rel="noreferrer" className="flex h-full flex-col no-underline">
             {content}
           </a>
         ) : (
-          <button type="button" className="flex w-full items-center gap-4 rounded-[1.5rem] bg-transparent text-left text-white" onClick={onClick}>
+          <button type="button" className="flex h-full flex-col bg-transparent text-left" onClick={onClick}>
             {content}
           </button>
         )}

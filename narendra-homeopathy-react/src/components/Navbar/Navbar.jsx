@@ -1,22 +1,30 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const external = { target: '_blank', rel: 'noreferrer' };
 
 export default function Navbar({ onAppointment }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
   return (
     <header className="sticky top-0 z-50 bg-white/90 shadow-sm backdrop-blur-sm">
       <div className="bg-brand-500 px-4 py-2 text-white">
         <div className="brand-container flex items-center justify-end gap-3 text-sm">
-          <a href="https://www.facebook.com/drsandip.gaikwad" {...external} className="rounded-full bg-white/15 p-2 transition hover:bg-white/25" aria-label="Facebook">
+          <a href="https://www.facebook.com/drsandip.gaikwad" {...external} className="rounded-full bg-white p-2 transition hover:bg-white/25" aria-label="Facebook">
             <i className="fa-brands fa-facebook-f text-blue-600" />
           </a>
-          <a href="https://www.linkedin.com/in/dr-sandip-gaikwad-01059931b" {...external} className="rounded-full bg-white/15 p-2 transition hover:bg-white/25" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/dr-sandip-gaikwad-01059931b" {...external} className="rounded-full  bg-white p-2 transition hover:bg-white/25" aria-label="LinkedIn">
             <i className="fa-brands fa-linkedin text-blue-700" />
           </a>
-          <a href="https://www.instagram.com/narendra_homoeopathic_clinic" {...external} className="rounded-full bg-white/15 p-2 transition hover:bg-white/25" aria-label="Instagram">
+          <a href="https://www.instagram.com/narendra_homoeopathic_clinic" {...external} className="rounded-full  bg-white p-2 transition hover:bg-white/25" aria-label="Instagram">
             <i className="fa-brands fa-instagram text-red-500" />
           </a>
-          <a href="https://www.youtube.com/@narendrahomeopathy505/videos" {...external} className="rounded-full bg-white/15 p-2 transition hover:bg-white/25" aria-label="YouTube">
+          <a href="https://www.youtube.com/@narendrahomeopathy505/videos" {...external} className="rounded-full  bg-white p-2 transition hover:bg-white/25" aria-label="YouTube">
             <i className="fa-brands fa-youtube text-red-500" />
           </a>
         </div>
@@ -42,16 +50,30 @@ export default function Navbar({ onAppointment }) {
         </div>
       </div>
 
-      <div className="border-t border-slate-200 bg-white/80">
-        <nav className="brand-container flex items-center justify-center py-3">
-          <ul className="flex flex-wrap items-center justify-center gap-2 text-sm font-medium">
-            <NavItem to="/" label="Home" />
-            <NavItem to="/about" label="About Us" />
-            <NavItem to="/doctor" label="About Dr. S. M. Gaikwad" />
-            <NavItem to="/why-homeopathy" label="Why Homeopathy?" />
-            <Dropdown label="Treatment" items={[['/acute', 'Acute Diseases'], ['/chronic', 'Chronic Diseases']]} />
-            <Dropdown label="Activities" items={[['/other', 'Camps'], ['/other', 'Workshops'], ['/other', 'Webinar/Seminar']]} />
-            <Dropdown label="Media" items={[['/blogs', 'Blog'], ['/news', 'News'], ['/articles', 'Articles'], ['/gallery', 'Gallery'], ['/contact', 'Contact']]} />
+      <div className="border-t border-slate-200 bg-white/95">
+        <nav className="brand-container py-3">
+          <div className="flex items-center justify-between md:hidden">
+            <span className="text-sm font-semibold text-slate-700">Explore the clinic</span>
+            <button
+              type="button"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-700 transition hover:border-brand-300 hover:text-brand-600"
+              aria-expanded={menuOpen}
+              aria-controls="main-navigation"
+              aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              <i className={`fa-solid ${menuOpen ? 'fa-xmark' : 'fa-bars'} text-lg`} />
+            </button>
+          </div>
+
+          <ul id="main-navigation" className={`${menuOpen ? 'flex' : 'hidden'} mt-3 flex-col gap-1 text-sm font-medium md:mt-0 md:flex md:flex-row md:flex-wrap md:items-center md:justify-center md:gap-2`}>
+            <NavItem to="/" label="Home" onNavigate={() => setMenuOpen(false)} />
+            <NavItem to="/about" label="About Us" onNavigate={() => setMenuOpen(false)} />
+            <NavItem to="/doctor" label="About Dr. S. M. Gaikwad" onNavigate={() => setMenuOpen(false)} />
+            <NavItem to="/why-homeopathy" label="Why Homeopathy?" onNavigate={() => setMenuOpen(false)} />
+            <Dropdown label="Treatment" items={[['/acute', 'Acute Diseases'], ['/chronic', 'Chronic Diseases']]} onNavigate={() => setMenuOpen(false)} />
+            <Dropdown label="Activities" items={[['/other', 'Camps'], ['/other', 'Workshops'], ['/other', 'Webinar/Seminar']]} onNavigate={() => setMenuOpen(false)} />
+            <Dropdown label="Media" items={[['/blogs', 'Blog'], ['/news', 'News'], ['/articles', 'Articles'], ['/gallery', 'Gallery'], ['/contact', 'Contact']]} onNavigate={() => setMenuOpen(false)} />
           </ul>
         </nav>
       </div>
@@ -59,27 +81,38 @@ export default function Navbar({ onAppointment }) {
   );
 }
 
-function NavItem({ to, label }) {
+function NavItem({ to, label, onNavigate }) {
+  const location = useLocation();
+  const active = location.pathname === to;
+
   return (
     <li>
-      <Link className="nav-link-base" to={to}>
+      <Link className={`nav-link-base block ${active ? 'bg-brand-50 text-brand-600' : ''}`} to={to} onClick={onNavigate}>
         {label}
       </Link>
     </li>
   );
 }
 
-function Dropdown({ label, items }) {
+function Dropdown({ label, items, onNavigate }) {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const active = items.some(([to]) => location.pathname === to);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
   return (
     <li className="group relative">
-      <button className="nav-link-base flex items-center gap-2" type="button">
+      <button className={`nav-link-base flex w-full items-center justify-between gap-2 md:w-auto ${active ? 'bg-brand-50 text-brand-600' : ''}`} type="button" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
         {label}
-        <i className="fa-solid fa-chevron-down text-[10px]" />
+        <i className={`fa-solid ${open ? 'fa-chevron-up' : 'fa-chevron-down'} text-[10px]`} />
       </button>
-      <ul className="invisible absolute left-0 top-full z-20 min-w-[180px] rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-soft transition-all duration-200 group-hover:visible group-hover:opacity-100">
+      <ul className={`${open ? 'block' : 'hidden'} static mt-1 min-w-[180px] rounded-xl border border-slate-200 bg-white p-2 shadow-soft md:absolute md:left-0 md:top-full md:mt-0 md:group-hover:block`}>
         {items.map(([to, text]) => (
           <li key={text}>
-            <Link className="block rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-brand-50 hover:text-brand-600" to={to}>
+            <Link className="block rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-brand-50 hover:text-brand-600" to={to} onClick={onNavigate}>
               {text}
             </Link>
           </li>

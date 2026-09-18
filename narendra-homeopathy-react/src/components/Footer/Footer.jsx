@@ -21,7 +21,17 @@ export default function Footer() {
           <div>
             <h4 className="pb-4 text-xl font-semibold text-white">Quick Links</h4>
             <ul className="space-y-3 text-slate-300">
-              {[['/', 'HOME'], ['/about', 'ABOUT US'], ['/why-homeopathy', 'WHY HOMEOPATHY?'], ['/contact', 'CONTACT'], ['/blogs', 'BLOG']].map(([to, label]) => (
+              {[
+                ['/', 'Home'],
+                ['/about', 'About Us'],
+                ['/doctor', 'Dr. S. M. Gaikwad'],
+                ['/why-homeopathy', 'Why Homeopathy?'],
+                ['/acute', 'Acute Disease'],
+                ['/chronic', 'Chronic Disease'],
+                ['/blogs', 'Blogs'],
+                ['/articles', 'Articles'],
+                ['/contact', 'Contact'],
+              ].map(([to, label]) => (
                 <li key={label}>
                   <Link to={to} className="inline-flex items-center gap-2 transition hover:text-brand-300">
                     <i className="fa-solid fa-caret-right text-brand-400" />
@@ -35,18 +45,20 @@ export default function Footer() {
           <div>
             <h4 className="pb-4 text-xl font-semibold text-white">Our Services</h4>
             <ul className="space-y-3 text-slate-300">
-              <li>
-                <Link to="/chronic" className="inline-flex items-center gap-2 transition hover:text-brand-300">
-                  <i className="fa-solid fa-caret-right text-brand-400" />
-                  Chronic Disease
-                </Link>
-              </li>
-              <li>
-                <Link to="/acute" className="inline-flex items-center gap-2 transition hover:text-brand-300">
-                  <i className="fa-solid fa-caret-right text-brand-400" />
-                  Acute Disease
-                </Link>
-              </li>
+              {[
+                ['/chronic', 'Chronic Disease'],
+                ['/acute', 'Acute Disease'],
+                ['/other', 'Activities'],
+                ['/gallery', 'Gallery'],
+                ['/news', 'News'],
+              ].map(([to, label]) => (
+                <li key={label}>
+                  <Link to={to} className="inline-flex items-center gap-2 transition hover:text-brand-300">
+                    <i className="fa-solid fa-caret-right text-brand-400" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -71,7 +83,14 @@ export default function Footer() {
                 <i className="fa-solid fa-location-dot pt-1 text-brand-400" />
                 <div>
                   <p className="mb-1 text-sm text-slate-400">Our Location</p>
-                  <a href="/contact" className="hover:text-brand-300">Shop No-2/3/4, Sukhwani Akashdeep, Wing-B, Shastri Nagar, Kasarwadi, Pimpri-Chinchwad, Maharashtra 411034</a>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Shop+No-2%2F3%2F4+Sukhwani+Akashdeep+Wing-B+Shastri+Nagar+Kasarwadi+Pimpri-Chinchwad+Maharashtra+411034"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-brand-300"
+                  >
+                    Shop No-2/3/4, Sukhwani Akashdeep, Wing-B, Shastri Nagar, Kasarwadi, Pimpri-Chinchwad, Maharashtra 411034
+                  </a>
                 </div>
               </div>
             </div>
